@@ -1,7 +1,3 @@
-// *********************************************************************************
-// Server.js - This file is the initial starting point for the Node/Express server.
-// *********************************************************************************
-
 // Dependencies
 // =============================================================
 var express 	= require('express');
@@ -18,8 +14,13 @@ app.use(bodyParser.urlencoded({extended: true}));
 app.use(bodyParser.text());
 app.use(bodyParser.json({type:'application/vnd.api+json'}));
 
+// the routes
+// =============================================================
 require("./routes/apiRoutes.js")(app);
-require("./routes/apiRoutes.js")(app);
+
+// connect to database
+// =============================================================
+require("./config/connection.js")(app);
 
 // Starts the server to begin listening 
 // =============================================================
