@@ -4,3 +4,20 @@ ssh -i "/Users/jeremiahscanlon/Dropbox/Jeremiah/RCB_Classwork/api-instaevents/in
 
 bitnami Mongo DB password: 473JltwwbqJR
 
+sudo mongo admin --username root --password 473JltwwbqJR
+
+sudo mongo admin --username jeremiah --password mongopass
+
+db.createUser({
+        user: "reactNativeApp",
+        pwd: "75kAPS3DmMbH",
+        roles:[
+                {
+                        "role" : "readWrite",
+                        "db": "dummyDB"
+                }
+        ]
+})
+
+mongo ec2-52-90-83-128.compute-1.amazonaws.com/dummyDB -u reactNativeApp -p 75kAPS3DmMbH
+

@@ -18,8 +18,8 @@ var UserSchema = new Schema({
         ref: 'User'
     }],
     age: Number,
-    homezip: Number,
-    workzip: Number,
+    homezip: String,
+    workzip: String,
     settings: {
         notifications: Boolean,
     }

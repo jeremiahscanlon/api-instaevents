@@ -3,7 +3,7 @@ module.exports = function(app){
     var mongoose 	= require('mongoose');
     var User = require('../models/user.js');
 
-    mongoose.connect('mongodb://localhost/testusers');
+    mongoose.connect('mongodb://reactNativeApp:75kAPS3DmMbH@ec2-52-90-83-128.compute-1.amazonaws.com:27017/dummyDB');
 
     var db = mongoose.connection;
 
@@ -12,10 +12,10 @@ module.exports = function(app){
     db.once('open', function() {
         console.log("We're connected!");
 
-        var nate = new User({
-            username: 'nate123',
+        var smiller = new User({
+            username: 'smiller5',
             password: 'password',
-            email: 'nate@gmail.com',
+            email: 'smiller@gmail.com',
             picture: 'http://www.digitaljournal.com/img/5/9/2/8/1/2/i/1/2/6/o/tard3.JPG',
             bio: 'I love playing all sorts of sports and video games!',
             // friends: [{
@@ -30,11 +30,9 @@ module.exports = function(app){
             }
         });
 
-        nate.save(function (err, nate) {
+        smiller.save(function (err, smiller) {
             if (err) return console.error(err);
+            console.log(smiller)
         });
-
-        console.log(nate)
-
     });
 };
