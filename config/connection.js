@@ -1,34 +1,9 @@
 module.exports = function(app){
     // require mongoose
     var mongoose 	= require('mongoose');
+    var User = require('../models/user.js');
 
     mongoose.connect('mongodb://localhost/testusers');
-    var Schema = mongoose.Schema;
-
-// Need to add stuff like validation and required, etc...
-// Zip with a first number 0 isn't registering properly
-    var userSchema = new Schema({
-        username: {
-            type: String,
-            unique: true,
-        },
-        password: String,
-        email: String,
-        picture: String,
-        bio: String,
-        friends: [{
-            type: Schema.Types.ObjectId,
-            ref: 'User'
-        }],
-        age: Number,
-        homezip: Number,
-        workzip: Number,
-        settings: {
-            notifications: Boolean,
-        }
-    });
-
-    var User = mongoose.model('User', userSchema);
 
     var db = mongoose.connection;
 
@@ -37,29 +12,29 @@ module.exports = function(app){
     db.once('open', function() {
         console.log("We're connected!");
 
-        var kevin = new User({
-            username: 'KJG310',
+        var nate = new User({
+            username: 'nate123',
             password: 'password',
-            email: 'KJG310@Gmail.com',
+            email: 'nate@gmail.com',
             picture: 'http://www.digitaljournal.com/img/5/9/2/8/1/2/i/1/2/6/o/tard3.JPG',
             bio: 'I love playing all sorts of sports and video games!',
             // friends: [{
             //    	type: Schema.Types.ObjectId,
             //    	ref: 'User'
             //    }],
-            age: 27,
-            homezip: 07920,
-            workzip: 07920,
+            age: 35,
+            homezip: '08805',
+            workzip: '07960',
             settings: {
                 notifications: true,
             }
         });
 
-        kevin.save(function (err, kevin) {
+        nate.save(function (err, nate) {
             if (err) return console.error(err);
         });
 
-        console.log(kevin)
+        console.log(nate)
 
     });
 };

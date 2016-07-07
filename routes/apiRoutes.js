@@ -1,6 +1,18 @@
 module.exports = function(app){
+	var User = require('../models/user.js');
+
 	app.get('/', function(req,res){
 		res.redirect('http://www.google.com')
+	});
+
+	app.get('/users', function(req, res){
+		User.find({}, function(err, doc){
+			if (err){
+				console.log(err);
+			} else {
+				res.json(doc);
+			}
+		});
 	});
 
 	app.post('/', function(req,res){
