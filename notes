@@ -1,0 +1,6 @@
+ssh -i "/Users/jeremiahscanlon/Dropbox/Jeremiah/RCB_Classwork/api-instaevents/instaevents.pem" bitnami@ec2-52-90-83-128.compute-1.amazonaws.com
+
+ssh -i "/Users/jeremiahscanlon/Dropbox/Jeremiah/RCB_Classwork/api-instaevents/instaevents.pem" ubuntu@ec2-52-90-83-128.compute-1.amazonaws.com
+
+bitnami Mongo DB password: 473JltwwbqJR
+
