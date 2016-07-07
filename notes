@@ -21,3 +21,6 @@ db.createUser({
 
 mongo ec2-52-90-83-128.compute-1.amazonaws.com/dummyDB -u reactNativeApp -p 75kAPS3DmMbH
 
+letsencrypt certonly --standalone \
+  --config-dir /letsencrypt/etc \
+  --agree-tos --domains ec2-52-90-83-128.compute-1.amazonaws.com --email jermeiah.j.scanlon@gmail.com

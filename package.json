@@ -15,6 +15,7 @@
     "letsencrypt-express": "^1.1.5",
     "mongoose": "^4.5.2",
     "morgan": "^1.7.0",
-    "serve-favicon": "^2.3.0"
+    "serve-favicon": "^2.3.0",
+    "spdy": "^3.3.3"
   }
 }
