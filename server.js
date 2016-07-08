@@ -47,7 +47,7 @@ require("./config/connection.js")(app);
 
 // Starts the server to begin listening 
 // =============================================================
-var PORT = process.env.PORT || 8080;
+var PORT = process.env.PORT || 80;
 app.listen(PORT, function(){
 	console.log('App listening on PORT ' + PORT);
 })
