@@ -5,8 +5,9 @@ var path		= require('path');
 var bodyParser 	= require('body-parser');
 var favicon 	= require('serve-favicon');
 var logger 		= require('morgan');
-var LEX 		= require('letsencrypt-express').testing();
-var lex			= require('./config/letsEncryptExpress');
+// uncomment when we want to use SSL
+//var LEX 		= require('letsencrypt-express').testing();
+//var lex			= require('./config/letsEncryptExpress');
 
 // Set up the Express App
 // =============================================================

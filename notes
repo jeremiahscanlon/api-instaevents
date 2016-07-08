@@ -21,8 +21,51 @@ db.createUser({
 
 mongo ec2-52-90-83-128.compute-1.amazonaws.com/dummyDB -u reactNativeApp -p 75kAPS3DmMbH
 
+NOTE: need to stop apache in order to use port 80 (and possibly the SSL ports later)
+/opt/bitnami/ctlscript.sh stop apache
+
+
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+Lets Encrypt for SSL
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 letsencrypt certonly --standalone \
   --config-dir letsencrypt/etc \
   --agree-tos --domains ec2-52-90-83-128.compute-1.amazonaws.com --email jermeiah.j.scanlon@gmail.com
 
-letsencrypt certonly --standalone --config-dir ~/apps/api-instaevents/letsencrypt/etc --agree-tos --domains ec2-52-90-83-128.compute-1.amazonaws.com --email jermeiah.j.scanlon@gmail.com
+sudo letsencrypt certonly --standalone --config-dir ~/letsencrypt/etc --agree-tos --domains ec2-52-90-83-128.compute-1.amazonaws.com --email jermeiah.j.scanlon@gmail.com
+
+
+[DEBUG le/lib/core.js] registeryAsync err
+Error: [Error] letiny-core: not 200 ok
+    at bodyToError (/opt/bitnami/nodejs/lib/node_modules/letsencrypt-cli/node_modules/letiny-core/lib/get-certificate.js:81:15)
+    at /opt/bitnami/nodejs/lib/node_modules/letsencrypt-cli/node_modules/letiny-core/lib/get-certificate.js:124:20
+    at Request._callback (/opt/bitnami/nodejs/lib/node_modules/letsencrypt-cli/node_modules/letiny-core/lib/acme-client.js:102:7)
+    at Request.self.callback (/opt/bitnami/nodejs/lib/node_modules/letsencrypt-cli/node_modules/request/request.js:200:22)
+    at emitTwo (events.js:106:13)
+    at Request.emit (events.js:191:7)
+    at Request.<anonymous> (/opt/bitnami/nodejs/lib/node_modules/letsencrypt-cli/node_modules/request/request.js:1067:10)
+    at emitOne (events.js:101:20)
+    at Request.emit (events.js:188:7)
+    at IncomingMessage.<anonymous> (/opt/bitnami/nodejs/lib/node_modules/letsencrypt-cli/node_modules/request/request.js:988:12)
+    at emitNone (events.js:91:20)
+    at IncomingMessage.emit (events.js:185:7)
+    at endReadableNT (_stream_readable.js:926:12)
+    at _combinedTickCallback (internal/process/next_tick.js:74:11)
+    at process._tickCallback (internal/process/next_tick.js:98:9)
+[Error]: letsencrypt-cli
+Error: [Error] letiny-core: not 200 ok
+    at bodyToError (/opt/bitnami/nodejs/lib/node_modules/letsencrypt-cli/node_modules/letiny-core/lib/get-certificate.js:81:15)
+    at /opt/bitnami/nodejs/lib/node_modules/letsencrypt-cli/node_modules/letiny-core/lib/get-certificate.js:124:20
+    at Request._callback (/opt/bitnami/nodejs/lib/node_modules/letsencrypt-cli/node_modules/letiny-core/lib/acme-client.js:102:7)
+    at Request.self.callback (/opt/bitnami/nodejs/lib/node_modules/letsencrypt-cli/node_modules/request/request.js:200:22)
+    at emitTwo (events.js:106:13)
+    at Request.emit (events.js:191:7)
+    at Request.<anonymous> (/opt/bitnami/nodejs/lib/node_modules/letsencrypt-cli/node_modules/request/request.js:1067:10)
+    at emitOne (events.js:101:20)
+    at Request.emit (events.js:188:7)
+    at IncomingMessage.<anonymous> (/opt/bitnami/nodejs/lib/node_modules/letsencrypt-cli/node_modules/request/request.js:988:12)
+    at emitNone (events.js:91:20)
+    at IncomingMessage.emit (events.js:185:7)
+    at endReadableNT (_stream_readable.js:926:12)
+    at _combinedTickCallback (internal/process/next_tick.js:74:11)
+    at process._tickCallback (internal/process/next_tick.js:98:9)
