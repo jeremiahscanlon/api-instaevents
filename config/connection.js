@@ -16,10 +16,10 @@ module.exports = function(app){
     db.once('open', function() {
         console.log("We're connected!");
 
-        var jeremiah = new User({
-            username: 'jjs122',
+        var kevin = new User({
+            username: 'kgraber',
             password: 'password',
-            email: 'jeremiah@gmail.com',
+            email: 'kevin@gmail.com',
             picture: 'http://www.digitaljournal.com/img/5/9/2/8/1/2/i/1/2/6/o/tard3.JPG',
             bio: 'I love playing all sorts of sports and video games!',
             // friends: [{
@@ -27,16 +27,16 @@ module.exports = function(app){
             //    	ref: 'User'
             //    }],
             age: 35,
-            homezip: '08805',
-            workzip: '07960',
+            homezip: '10012',
+            workzip: '08856',
             settings: {
                 notifications: true,
             }
         });
 
-        jeremiah.save(function (err, jeremiah) {
+        kevin.save(function (err, kevin) {
             if (err) return console.error(err);
-            console.log(jeremiah);
+            console.log(kevin);
         });
     });
 };
