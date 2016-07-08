@@ -39,15 +39,15 @@ require("./config/connection.js")(app);
 
 // start the letsencrypt express application
 // =============================================================
-lex.onRequest = app;
-lex.listen([8080], [], function () {
-	var protocol = ('requestCert' in this) ? 'https': 'http';
-	console.log("Listening at " + protocol + '://localhost:' + this.address().port);
-});
+// lex.onRequest = app;
+// lex.listen([8080], [43], function () {
+// 	var protocol = ('requestCert' in this) ? 'https': 'http';
+// 	console.log("Listening at " + protocol + '://localhost:' + this.address().port);
+// });
 
 // Starts the server to begin listening 
 // =============================================================
-// var PORT = process.env.PORT || 8080;
-// app.listen(PORT, function(){
-// 	console.log('App listening on PORT ' + PORT);
-// })
+var PORT = process.env.PORT || 8080;
+app.listen(PORT, function(){
+	console.log('App listening on PORT ' + PORT);
+})
