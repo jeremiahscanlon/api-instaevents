@@ -23,6 +23,8 @@ var UserSchema = new Schema({
     settings: {
         notifications: Boolean,
     }
+},{
+    timestamps: true
 });
 
 var User = mongoose.model('User', UserSchema);

@@ -1,7 +1,10 @@
 module.exports = function(app){
-    // require mongoose
+
     var mongoose 	= require('mongoose');
+    var moment = require('moment');
+
     var User = require('../models/user.js');
+    var Event = require('../models/event.js');
 
     // local dev
     //mongoose.connect('mongodb://localhost/testusers');
@@ -38,5 +41,47 @@ module.exports = function(app){
             if (err) return console.error(err);
             console.log(kevin);
         });
+
+        var date = moment("2016-08-01 4:30", "YYYY-MM-DD HH:mm");
+
+        var event = new Event({
+            name: 'The First Event',
+            // creator: {
+            //     type: Schema.Types.ObjectId,
+            //     ref: 'User'
+            // },
+            loc: [40.4995488, -74.4443186],
+            location_name: 'Rutgers University',
+            description: 'It had to start somewhere, so this is where.',
+            // attendees: [{
+            //     invited:[{
+            //         type: Schema.Types.ObjectId,
+            //         ref: 'User'
+            //     }],
+            //     in:[{
+            //         type: Schema.Types.ObjectId,
+            //         ref: 'User'
+            //     }],
+            //     out:[{
+            //         type: Schema.Types.ObjectId,
+            //         ref: 'User'
+            //     }],
+            //     watching:[{
+            //         type: Schema.Types.ObjectId,
+            //         ref: 'User'
+            //     }]
+            // }],
+            date_time: date,
+            tags: ['school', 'fun',''],
+            image: 'http://www.dayawaycareers.com/files/Post-Grad--Rutgers-University/Rutgers%20building%20edited.jpg',
+            current: true,
+            private: false
+        });
+
+        event.save(function (err, event) {
+            if (err) return console.error(err);
+            console.log(event);
+        });
+        
     });
 };
