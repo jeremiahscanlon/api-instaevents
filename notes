@@ -70,74 +70,66 @@ Error: [Error] letiny-core: not 200 ok
     at _combinedTickCallback (internal/process/next_tick.js:74:11)
     at process._tickCallback (internal/process/next_tick.js:98:9)
 
-var userObject = {
-    username: 'kporzee',
-    name:{
-        first:'Kristaps',
-        last:'Porzingis'
+use POSTMAN to send POST request to ...
+http://ec2-52-90-83-128.compute-1.amazonaws.com/newuser
+
+BODY - JSON (application/json) ...
+
+{
+    "username": "jlaw123",
+    "name":{
+        "first":"Jennifer",
+        "last":"Lawrence"
     },
-    password: 'password',
-    email: 'kporzee@gmail.com',
-    picture: 'http://a.espncdn.com/combiner/i?img=/i/headshots/nba/players/full/3102531.png&w=350&h=254',
-    bio: 'Just call me Slimzingis',
+    "password": "password",
+    "email": "jlaw123@gmail.com",
+    "picture": "http://images.fashionnstyle.com/data/images/full/144022/jennifer-lawrence.jpg?w=600",
+    "bio": "Just call me Jlaw the highly-paid.",
     // friends: [{
     //    	type: Schema.Types.ObjectId,
-    //    	ref: 'User'
+    //    	ref: "User"
     //    }],
-    age: 25,
-    homezip: '10012',
-    workzip: '08805',
-    settings: {
-        notifications: true
+    "age": 25,
+    "homezip": "90001",
+    "workzip": "90028",
+    "settings": {
+        "notifications": true
     }
-};
+}
 
-var kporzee = new User(userObject);
-
-kporzee.save(function (err, kporzee) {
-    if (err) return console.error(err);
-    console.log(kporzee);
-});
 
 var date = moment("2016-08-13 19:00", "YYYY-MM-DD HH:mm");
 
-var eventObject = {
-    name: 'Red Bulls Game',
+{
+    "name": "Red Bulls Game",
     // creator: {
     //     type: Schema.Types.ObjectId,
-    //     ref: 'User'
+    //     ref: "User"
     // },
-    loc: [40.737473, -74.150467],
-    location_name: 'Red Bull Arena',
-    description: 'They are playing the Montreal Impact',
+    "loc": [40.737473, -74.150467],
+    "location_name": "Red Bull Arena",
+    "description": "They are playing the Montreal Impact",
     // attendees: [{
     //     invited:[{
     //         type: Schema.Types.ObjectId,
-    //         ref: 'User'
+    //         ref: "User"
     //     }],
     //     in:[{
     //         type: Schema.Types.ObjectId,
-    //         ref: 'User'
+    //         ref: "User"
     //     }],
     //     out:[{
     //         type: Schema.Types.ObjectId,
-    //         ref: 'User'
+    //         ref: "User"
     //     }],
     //     watching:[{
     //         type: Schema.Types.ObjectId,
-    //         ref: 'User'
+    //         ref: "User"
     //     }]
     // }],
-    date_time: date,
-    tags: ['games', 'soccer','tickets'],
-    image: 'https://lh4.googleusercontent.com/-U8ytToS05X0/AAAAAAAAAAI/AAAAAAAAZEo/XXanIcoFHBE/s0-c-k-no-ns/photo.jpg',
-    current: true,
-    private: true
-};
-
-var event = new Event(eventObject);
-
-event.save(function (err, event) {
-    if (err) return console.error(err);
-    console.log(event);
-});
+    "date_time": 2016-08-13T19:00:00.000Z,
+    "tags": ["games", "soccer","tickets"],
+    "image": "https://lh4.googleusercontent.com/-U8ytToS05X0/AAAAAAAAAAI/AAAAAAAAZEo/XXanIcoFHBE/s0-c-k-no-ns/photo.jpg",
+    "current": true,
+    "private": true
+}
