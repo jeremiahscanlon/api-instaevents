@@ -9,6 +9,10 @@ var UserSchema = new Schema({
         type: String,
         unique: true,
     },
+    name:{
+        first:String,
+        last:String
+    },
     password: String,
     email: String,
     picture: String,

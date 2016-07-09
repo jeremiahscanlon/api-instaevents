@@ -19,40 +19,46 @@ module.exports = function(app){
     db.once('open', function() {
         console.log("We're connected!");
 
-        var fattony = new User({
-            username: 'fattony',
+        var userObject = {
+            username: 'kporzee',
+            name:{
+                first:'Kristaps',
+                last:'Porzingis'
+            },
             password: 'password',
-            email: 'fattony@gmail.com',
-            picture: 'http://www.digitaljournal.com/img/5/9/2/8/1/2/i/1/2/6/o/tard3.JPG',
-            bio: 'I\'m the fattest of all the Tonys',
+            email: 'kporzee@gmail.com',
+            picture: 'http://a.espncdn.com/combiner/i?img=/i/headshots/nba/players/full/3102531.png&w=350&h=254',
+            bio: 'Just call me Slimzingis',
             // friends: [{
             //    	type: Schema.Types.ObjectId,
             //    	ref: 'User'
             //    }],
             age: 25,
-            homezip: '01007',
-            workzip: '01568',
+            homezip: '10012',
+            workzip: '08805',
             settings: {
                 notifications: true
             }
-        });
+        };
 
-        fattony.save(function (err, fattony) {
+        var kporzee = new User(userObject);
+
+        kporzee.save(function (err, kporzee) {
             if (err) return console.error(err);
-            console.log(fattony);
+            console.log(kporzee);
         });
 
-        var date = moment("2016-07-27 14:30", "YYYY-MM-DD HH:mm");
+        var date = moment("2016-08-13 19:00", "YYYY-MM-DD HH:mm");
 
-        var event = new Event({
-            name: 'Beach Volleyball',
+        var eventObject = {
+            name: 'Red Bulls Game',
             // creator: {
             //     type: Schema.Types.ObjectId,
             //     ref: 'User'
             // },
-            loc: [39.366209, -74.418034],
-            location_name: 'Revel AC',
-            description: 'Meet us on the beach.',
+            loc: [40.737473, -74.150467],
+            location_name: 'Red Bull Arena',
+            description: 'They are playing the Montreal Impact',
             // attendees: [{
             //     invited:[{
             //         type: Schema.Types.ObjectId,
@@ -72,11 +78,13 @@ module.exports = function(app){
             //     }]
             // }],
             date_time: date,
-            tags: ['sports', 'fun','volleyball'],
-            image: 'http://www.dayawaycareers.com/files/Post-Grad--Rutgers-University/Rutgers%20building%20edited.jpg',
+            tags: ['games', 'soccer','tickets'],
+            image: 'https://lh4.googleusercontent.com/-U8ytToS05X0/AAAAAAAAAAI/AAAAAAAAZEo/XXanIcoFHBE/s0-c-k-no-ns/photo.jpg',
             current: true,
-            private: false
-        });
+            private: true
+        };
+
+        var event = new Event(eventObject);
 
         event.save(function (err, event) {
             if (err) return console.error(err);
