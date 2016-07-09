@@ -26,36 +26,17 @@ module.exports = function(app){
 		});
 	});
 
-	app.post('/', function(req,res){
-		console.log('request recieved!');
-		console.log(req.body);
-		var bodyjson = JSON.parse(req.body);
-		console.log(bodyjson);
-
-
-		var newuser = new User({
-			username: bodyjson.username,
-			password: bodyjson.password,
-			email: bodyjson.email,
-			picture: bodyjson.picture,
-			bio: bodyjson.bio,
-			// friends: [{
-			//    	type: Schema.Types.ObjectId,
-			//    	ref: 'User'
-			//    }],
-			age: bodyjson.age,
-			homezip: bodyjson.homezip,
-			workzip: bodyjson.workzip,
-			settings: {
-				notifications: false
-			}
-		});
+	app.post('/newuser', function(req,res){
+		var newuser = new User(req.body);
 
 		newuser.save(function (err, newuser) {
 			if (err) return console.error(err);
 		});
 
+		res.json({
+			result:'its all good',
+			user_id: newuser._id
+		});
 
-		res.send('hey')
 	});
 };
