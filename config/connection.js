@@ -19,40 +19,40 @@ module.exports = function(app){
     db.once('open', function() {
         console.log("We're connected!");
 
-        var kevin = new User({
-            username: 'kgraber',
+        var fattony = new User({
+            username: 'fattony',
             password: 'password',
-            email: 'kevin@gmail.com',
+            email: 'fattony@gmail.com',
             picture: 'http://www.digitaljournal.com/img/5/9/2/8/1/2/i/1/2/6/o/tard3.JPG',
-            bio: 'I love playing all sorts of sports and video games!',
+            bio: 'I\'m the fattest of all the Tonys',
             // friends: [{
             //    	type: Schema.Types.ObjectId,
             //    	ref: 'User'
             //    }],
-            age: 35,
-            homezip: '10012',
-            workzip: '08856',
+            age: 25,
+            homezip: '01007',
+            workzip: '01568',
             settings: {
-                notifications: true,
+                notifications: true
             }
         });
 
-        kevin.save(function (err, kevin) {
+        fattony.save(function (err, fattony) {
             if (err) return console.error(err);
-            console.log(kevin);
+            console.log(fattony);
         });
 
-        var date = moment("2016-08-01 4:30", "YYYY-MM-DD HH:mm");
+        var date = moment("2016-07-27 14:30", "YYYY-MM-DD HH:mm");
 
         var event = new Event({
-            name: 'The First Event',
+            name: 'Beach Volleyball',
             // creator: {
             //     type: Schema.Types.ObjectId,
             //     ref: 'User'
             // },
-            loc: [40.4995488, -74.4443186],
-            location_name: 'Rutgers University',
-            description: 'It had to start somewhere, so this is where.',
+            loc: [39.366209, -74.418034],
+            location_name: 'Revel AC',
+            description: 'Meet us on the beach.',
             // attendees: [{
             //     invited:[{
             //         type: Schema.Types.ObjectId,
@@ -72,7 +72,7 @@ module.exports = function(app){
             //     }]
             // }],
             date_time: date,
-            tags: ['school', 'fun',''],
+            tags: ['sports', 'fun','volleyball'],
             image: 'http://www.dayawaycareers.com/files/Post-Grad--Rutgers-University/Rutgers%20building%20edited.jpg',
             current: true,
             private: false

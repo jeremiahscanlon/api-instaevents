@@ -22,7 +22,7 @@ db.createUser({
 mongo ec2-52-90-83-128.compute-1.amazonaws.com/dummyDB -u reactNativeApp -p 75kAPS3DmMbH
 
 NOTE: need to stop apache in order to use port 80 (and possibly the SSL ports later)
-/opt/bitnami/ctlscript.sh stop apache
+sudo /opt/bitnami/ctlscript.sh stop apache
 
 
 ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
