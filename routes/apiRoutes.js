@@ -2,6 +2,23 @@ module.exports = function(app){
 	var User = require('../models/user.js');
 	var Event = require('../models/event.js');
 
+	app.post('/login', function(req,res){
+		var user = User.findOne({'email': req.body.email});
+		if (!user) {
+			return res.status(401).send("That user does not exist");
+		}
+
+		if (user.password !== req.body.password) {
+			return res.status(401).send("The password doesn't match that user");
+		}
+
+		res.status(201).send({
+			//id_token: createToken(user)
+			result:'its all good'
+		});
+
+	});
+	
 	app.get('/users', function(req, res){
 		User.find({}, function(err, doc){
 			if (err){
@@ -59,4 +76,6 @@ module.exports = function(app){
 		});
 
 	});
+	
+	
 };

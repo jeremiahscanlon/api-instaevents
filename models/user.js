@@ -14,7 +14,10 @@ var UserSchema = new Schema({
         last:String
     },
     password: String,
-    email: String,
+    email: {
+        type: String,
+        unique: true
+    },
     picture: String,
     bio: String,
     friends: [{
