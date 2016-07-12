@@ -5,7 +5,7 @@ module.exports = function(app){
 	app.post('/login', function(req,res){
 		var user = User.findOne({'email': req.body.email});
 
-		console.log (user);
+		console.log (user.path.username);
 
 		// if (!user) {
 		// 	return res.status(401).send("That user does not exist");
