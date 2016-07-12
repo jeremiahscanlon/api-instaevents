@@ -4,10 +4,10 @@ module.exports = function(app){
 
 	app.post('/login', function(req,res){
 		console.log(req.body);
-		// User.findOne({ 'email': req.body.email }, function (err, person) {
-		// 	if (err) return res.status(401).send("That user does not exist");
-		// 	console.log(person);
-		// });
+		User.findOne({ 'email': req.body.email }, function (err, person) {
+			if (err) return res.status(401).send("That user does not exist");
+			console.log(person);
+		});
 
 		// if (!user) {
 		// 	return res.status(401).send("That user does not exist");
