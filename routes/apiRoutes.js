@@ -10,6 +10,8 @@ module.exports = function(app){
 			console.log("before err");
 			if (err) throw err;
 			console.log("after err");
+			console.log(person);
+			console.log(person.password);
 			if (person.password && person.password !== req.body.password) {
 				console.log("inside password");
 				return res.status(401).send("The password doesn't match that user");
