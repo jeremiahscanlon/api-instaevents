@@ -3,9 +3,10 @@ module.exports = function(app){
 	var Event = require('../models/event.js');
 
 	app.post('/login', function(req,res){
-		var user = User.findOne({'email': req.body.email});
-
-		console.log (user.path.username);
+		User.findOne({ 'email': req.body.email }, function (err, person) {
+			if (err) return res.status(401).send("That user does not exist");
+			console.log(person);
+		});
 
 		// if (!user) {
 		// 	return res.status(401).send("That user does not exist");
