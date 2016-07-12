@@ -6,7 +6,9 @@ module.exports = function(app){
 		console.log(req.body);
 		console.log(req.body.email);
 		var user = User.findOne({ 'email': req.body.email }, function (err, person) {
-			if (err) return res.status(401).send(err);
+			if (err) {
+				console.log(err);
+			}
 			if (person.password && person.password !== req.body.password) {
 				return res.status(401).send("The password doesn't match that user");
 			}
