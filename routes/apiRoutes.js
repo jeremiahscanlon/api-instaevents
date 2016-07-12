@@ -4,7 +4,7 @@ module.exports = function(app){
 
 	app.post('/login', function(req,res){
 		var user = User.findOne({ 'email': req.body.email }, function (err, person) {
-			if (err) {
+			if (err || person == null) {
 				return res.status(401).send("That user does not exist");
 			}
 			if (person.password !== req.body.password) {
