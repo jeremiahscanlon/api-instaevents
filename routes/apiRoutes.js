@@ -80,8 +80,59 @@ module.exports = function(app){
 		res.json({
 			result:'its all good'
 		});
-
 	});
-	
-	
+
+	app.post('/eventIn', function(req,res){
+		Event.findOneAndUpdate({'_id': req.body.eventID}, {$push:{"attendees.in":req.body.userID}})
+			.exec(function(err, doc){
+				if (err){
+					console.log(err);
+				} else {
+					console.log(doc);
+				}
+			});
+		res.json({
+			result:'its all good'
+		});
+	});
+	app.post('/eventOut', function(req,res){
+		Event.findOneAndUpdate({'_id': req.body.eventID}, {$push:{"attendees.out":req.body.userID}})
+			.exec(function(err, doc){
+				if (err){
+					console.log(err);
+				} else {
+					console.log(doc);
+				}
+			});
+		res.json({
+			result:'its all good'
+		});
+	});
+	app.post('/eventWatching', function(req,res){
+		Event.findOneAndUpdate({'_id': req.body.eventID}, {$push:{"attendees.watching":req.body.userID}})
+			.exec(function(err, doc){
+				if (err){
+					console.log(err);
+				} else {
+					console.log(doc);
+				}
+			});
+		res.json({
+			result:'its all good'
+		});
+	});
+
+	app.post('/eventTag', function(req,res){
+		Event.findOneAndUpdate({'_id': req.body.eventID}, {$push:{"tags":req.body.tag}})
+			.exec(function(err, doc){
+				if (err){
+					console.log(err);
+				} else {
+					console.log(doc);
+				}
+			});
+		res.json({
+			result:'its all good'
+		});
+	});
 };
