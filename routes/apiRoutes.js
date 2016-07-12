@@ -12,7 +12,7 @@ module.exports = function(app){
 			}
 			res.status(201).send({
 				//id_token: createToken(person)
-				result:'its all good',
+				string:'its all good',
 				result: person._id
 			});
 		});
