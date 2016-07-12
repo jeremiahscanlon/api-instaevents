@@ -1,6 +1,7 @@
 module.exports = function(app){
 	var User = require('../models/user.js');
 	var Event = require('../models/event.js');
+	var jwt = require('jsonwebtoken');
 
 	function createToken(user) {
 		return jwt.sign(_.omit(user, 'password'), config.secret, { expiresIn: 60*60*5 });
