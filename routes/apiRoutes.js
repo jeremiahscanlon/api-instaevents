@@ -45,15 +45,15 @@ module.exports = function(app){
 
 	});
 
-	app.get('/eventInvite', function(req,res){
-		// Event.findOneAndUpdate({'_id': req.body.eventID}, {$push:{"attendees.invited":req.body.userID}})
-		// 	.exec(function(err, doc){
-		// 		if (err){
-		// 			console.log(err);
-		// 		} else {
-		// 			console.log(doc);
-		// 		}
-		// 	});
+	app.post('/eventInvite', function(req,res){
+		Event.findOneAndUpdate({'_id': req.body.eventID}, {$push:{"attendees.invited":req.body.userID}})
+			.exec(function(err, doc){
+				if (err){
+					console.log(err);
+				} else {
+					console.log(doc);
+				}
+			});
 		res.json({
 			result:'its all good'
 		});
