@@ -3,24 +3,33 @@ module.exports = function(app){
 	var Event = require('../models/event.js');
 
 	app.post('/login', function(req,res){
-		var user = User.findOne({ 'email': req.body.email });
-
-		if (!user) {
-			return res.status(401).send("That user does not exist");
-		}
-
-		console.log(user.password);
-		console.log(req.body.password);
-
-		if (user.password !== req.body.password) {
-			return res.status(401).send("The password doesn't match that user");
-		}
-
-		res.status(201).send({
-			//id_token: createToken(user)
-			result:'its all good',
-			result: user._id
+		console.log(req.body);
+		console.log(req.body.email);
+		var user = User.findOne({ 'email': req.body.email }, function (err, person) {
+			if (err) return res.status(401).send("That user does not exist");
+			if (person.password !== req.body.password) {
+				return res.status(401).send("The password doesn't match that user");
+			}
+			res.status(201).send({
+				//id_token: createToken(person)
+				result:'its all good',
+				result: person._id
+			});
 		});
+
+		// if (!user) {
+		// 	return res.status(401).send("That user does not exist");
+		// }
+        //
+		// if (user.password !== req.body.password) {
+		// 	return res.status(401).send("The password doesn't match that user");
+		// }
+        //
+		// res.status(201).send({
+		// 	//id_token: createToken(user)
+		// 	result:'its all good',
+		// 	result: user._id
+		// });
 
 	});
 	
@@ -45,6 +54,8 @@ module.exports = function(app){
 	});
 
 	app.post('/newuser', function(req,res){
+		console.log(req.body);
+		console.log(req.body.username);
 		var newuser = new User(req.body);
 		newuser.save(function (err, newuser) {
 			if (err) return console.error(err);
