@@ -2,6 +2,10 @@ module.exports = function(app){
 	var User = require('../models/user.js');
 	var Event = require('../models/event.js');
 
+	function createToken(user) {
+		return jwt.sign(_.omit(user, 'password'), config.secret, { expiresIn: 60*60*5 });
+	}
+
 	app.post('/login', function(req,res){
 		var user = User.findOne({ 'email': req.body.email }, function (err, person) {
 			if (err || person == null) {
@@ -11,27 +15,9 @@ module.exports = function(app){
 				return res.status(401).send("The password doesn't match that user");
 			}
 			res.status(201).send({
-				//id_token: createToken(person)
-				string:'its all good',
-				result: person
+				id_token: createToken(person)
 			});
-
 		});
-
-		// if (!user) {
-		// 	return res.status(401).send("That user does not exist");
-		// }
-        //
-		// if (user.password !== req.body.password) {
-		// 	return res.status(401).send("The password doesn't match that user");
-		// }
-        //
-		// res.status(201).send({
-		// 	//id_token: createToken(user)
-		// 	result:'its all good',
-		// 	result: user._id
-		// });
-
 	});
 	
 	app.get('/users', function(req, res){
