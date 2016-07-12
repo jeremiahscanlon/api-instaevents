@@ -3,9 +3,10 @@ module.exports = function(app){
 	var Event = require('../models/event.js');
 	var jwt = require('jsonwebtoken');
 	var _ = require('lodash');
+	var secret = 'ugointashowup';
 
 	function createToken(user) {
-		return jwt.sign(_.omit(user, 'password'), config.secret, { expiresIn: 60*60*5 });
+		return jwt.sign(_.omit(user, 'password'), secret, { expiresIn: 60*60*5 });
 	}
 
 	app.post('/login', function(req,res){
