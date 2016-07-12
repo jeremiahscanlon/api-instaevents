@@ -13,7 +13,7 @@ module.exports = function(app){
 			return res.status(401).send("The password doesn't match that user");
 		}
 
-		res.status(201).json(user);
+		res.status(201).send(user);
 
 	});
 	
