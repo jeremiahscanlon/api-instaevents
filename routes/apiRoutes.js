@@ -71,7 +71,7 @@ module.exports = function(app){
 	app.post('/eventInvite', function(req,res){
 		Event.findOneAndUpdate({'_id': req.body.eventID}, {$push:{"attendees.invited":req.body.userID}})
 			.exec(function(err, doc){
-				if (err){
+				if (err || doc == null){
 					console.log(err);
 				} else {
 					res.json({
@@ -84,7 +84,7 @@ module.exports = function(app){
 	app.post('/eventIn', function(req,res){
 		Event.findOneAndUpdate({'_id': req.body.eventID}, {$push:{"attendees.in":req.body.userID}})
 			.exec(function(err, doc){
-				if (err){
+				if (err || doc == null){
 					console.log(err);
 				} else {
 					res.json({
@@ -96,7 +96,7 @@ module.exports = function(app){
 	app.post('/eventOut', function(req,res){
 		Event.findOneAndUpdate({'_id': req.body.eventID}, {$push:{"attendees.out":req.body.userID}})
 			.exec(function(err, doc){
-				if (err){
+				if (err || doc == null){
 					console.log(err);
 				} else {
 					res.json({
@@ -108,7 +108,7 @@ module.exports = function(app){
 	app.post('/eventWatching', function(req,res){
 		Event.findOneAndUpdate({'_id': req.body.eventID}, {$push:{"attendees.watching":req.body.userID}})
 			.exec(function(err, doc){
-				if (err){
+				if (err || doc == null){
 					console.log(err);
 				} else {
 					res.json({
@@ -121,7 +121,7 @@ module.exports = function(app){
 	app.post('/eventTag', function(req,res){
 		Event.findOneAndUpdate({'_id': req.body.eventID}, {$push:{"tags":req.body.tag}})
 			.exec(function(err, doc){
-				if (err){
+				if (err || doc == null){
 					console.log(err);
 				} else {
 					res.json({
