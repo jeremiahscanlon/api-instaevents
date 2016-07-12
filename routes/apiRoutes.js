@@ -74,12 +74,11 @@ module.exports = function(app){
 				if (err){
 					console.log(err);
 				} else {
-					console.log(doc);
+					res.json({
+						result:'user invited to event: '+doc._id
+					});
 				}
 			});
-		res.json({
-			result:'its all good'
-		});
 	});
 
 	app.post('/eventIn', function(req,res){
@@ -88,12 +87,11 @@ module.exports = function(app){
 				if (err){
 					console.log(err);
 				} else {
-					console.log(doc);
+					res.json({
+						result:'user in for event: '+doc._id
+					});
 				}
 			});
-		res.json({
-			result:'its all good'
-		});
 	});
 	app.post('/eventOut', function(req,res){
 		Event.findOneAndUpdate({'_id': req.body.eventID}, {$push:{"attendees.out":req.body.userID}})
@@ -101,12 +99,11 @@ module.exports = function(app){
 				if (err){
 					console.log(err);
 				} else {
-					console.log(doc);
+					res.json({
+						result:'user out of event: '+doc._id
+					});
 				}
 			});
-		res.json({
-			result:'its all good'
-		});
 	});
 	app.post('/eventWatching', function(req,res){
 		Event.findOneAndUpdate({'_id': req.body.eventID}, {$push:{"attendees.watching":req.body.userID}})
@@ -114,12 +111,11 @@ module.exports = function(app){
 				if (err){
 					console.log(err);
 				} else {
-					console.log(doc);
+					res.json({
+						result:'user watching event: '+doc._id
+					});
 				}
 			});
-		res.json({
-			result:'its all good'
-		});
 	});
 
 	app.post('/eventTag', function(req,res){
@@ -128,11 +124,12 @@ module.exports = function(app){
 				if (err){
 					console.log(err);
 				} else {
-					console.log(doc);
+					res.json({
+						result:'tag added to event: '+doc._id
+					});
 				}
 			});
-		res.json({
-			result:'its all good'
-		});
 	});
+
+
 };
