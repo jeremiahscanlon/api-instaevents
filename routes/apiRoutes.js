@@ -26,6 +26,7 @@ module.exports = function(app){
 	});
 	
 	app.post('/users', function(req, res){
+		console.log(req.body);
 		User.find({ 'username': req.body.username}, function(err, doc){
 			if (err){
 				console.log(err);
