@@ -4,23 +4,26 @@ module.exports = function(app){
 
 	app.post('/login', function(req,res){
 		console.log(req.body);
-		console.log(req.body.email);
 		console.log(req.body.password);
 		var user = User.findOne({ 'email': req.body.email }, function (err, person) {
-			console.log("before err");
-			if (err) throw err;
-			console.log("after err");
-			console.log(person);
-			console.log(person.password);
-			if (!person.password || person.password !== req.body.password) {
-				console.log("inside password");
-				return res.status(401).send("The password doesn't match that user");
+			console.log('before err');
+			if (err || person == null) {
+				return res.status(401).send("That user does not exist");
+			} else {
+				console.log('after err');
+				console.log('person: '+person);
+				if (person.password !== req.body.password) {
+					return res.status(401).send("The password doesn't match that user");
+				} else {
+					res.status(201).send({
+						//id_token: createToken(person)
+						string:'its all good',
+						result: person
+					});
+				}
+
 			}
-			res.status(201).send({
-				//id_token: createToken(person)
-				string:'its all good',
-				result: person
-			});
+
 		});
 
 		// if (!user) {
