@@ -3,11 +3,11 @@ module.exports = function(app){
 	var Event = require('../models/event.js');
 
 	app.post('/login', function(req,res){
-		console.log(req.body);
 		console.log(req.body.email);
+		console.log(req.body.password);
 		var user = User.findOne({ 'email': req.body.email }, function (err, person) {
 			if (err) {
-				return res.status(401).send(err);
+				return res.status(401).send('error');
 			}
 			if (person.password !== req.body.password) {
 				return res.status(401).send("The password doesn't match that user");
