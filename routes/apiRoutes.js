@@ -9,6 +9,9 @@ module.exports = function(app){
 			return res.status(401).send("That user does not exist");
 		}
 
+		console.log(user.password);
+		console.log(req.body.password);
+
 		if (user.password !== req.body.password) {
 			return res.status(401).send("The password doesn't match that user");
 		}
