@@ -3,26 +3,18 @@ module.exports = function(app){
 	var Event = require('../models/event.js');
 
 	app.post('/login', function(req,res){
-		console.log(req.body);
-		console.log(req.body.password);
 		var user = User.findOne({ 'email': req.body.email }, function (err, person) {
-			console.log('before err');
-			if (err || person == null) {
+			if (err) {
 				return res.status(401).send("That user does not exist");
-			} else {
-				console.log('after err');
-				console.log('person: '+person);
-				if (person.password !== req.body.password) {
-					return res.status(401).send("The password doesn't match that user");
-				} else {
-					res.status(201).send({
-						//id_token: createToken(person)
-						string:'its all good',
-						result: person
-					});
-				}
-
 			}
+			if (person.password !== req.body.password) {
+				return res.status(401).send("The password doesn't match that user");
+			}
+			res.status(201).send({
+				//id_token: createToken(person)
+				string:'its all good',
+				result: person
+			});
 
 		});
 
