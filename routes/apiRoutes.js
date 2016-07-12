@@ -5,9 +5,13 @@ module.exports = function(app){
 	app.post('/login', function(req,res){
 		console.log(req.body);
 		console.log(req.body.email);
+		console.log(req.body.password);
 		var user = User.findOne({ 'email': req.body.email }, function (err, person) {
+			console.log("before err");
 			if (err) throw err;
+			console.log("after err");
 			if (person.password && person.password !== req.body.password) {
+				console.log("inside password");
 				return res.status(401).send("The password doesn't match that user");
 			}
 			res.status(201).send({
