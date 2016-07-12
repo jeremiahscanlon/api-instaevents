@@ -14,7 +14,7 @@ module.exports = function(app){
 
 		res.status(201).send({
 			//id_token: createToken(user)
-			result:'its all good'
+			result:user.createdAt
 		});
 
 	});
