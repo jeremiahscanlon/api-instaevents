@@ -16,7 +16,7 @@ var EventSchema = new Schema({
     },
     location_name: String,
     description: String,
-    attendees: [{
+    attendees: {
         invited:[{
             type: Schema.Types.ObjectId,
             ref: 'User'
@@ -33,7 +33,7 @@ var EventSchema = new Schema({
             type: Schema.Types.ObjectId,
             ref: 'User'
         }]
-    }],
+    },
     date_time: Date,
     tags: Array,
     image: String,
