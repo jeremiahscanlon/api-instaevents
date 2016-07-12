@@ -4,19 +4,22 @@ module.exports = function(app){
 
 	app.post('/login', function(req,res){
 		var user = User.findOne({'email': req.body.email});
-		if (!user) {
-			return res.status(401).send("That user does not exist");
-		}
 
-		if (user.password !== req.body.password) {
-			return res.status(401).send("The password doesn't match that user");
-		}
+		console.log (user);
 
-		res.status(201).send({
-			//id_token: createToken(user)
-			result:'its all good',
-			result: user._id
-		});
+		// if (!user) {
+		// 	return res.status(401).send("That user does not exist");
+		// }
+        //
+		// if (user.password !== req.body.password) {
+		// 	return res.status(401).send("The password doesn't match that user");
+		// }
+        //
+		// res.status(201).send({
+		// 	//id_token: createToken(user)
+		// 	result:'its all good',
+		// 	result: user._id
+		// });
 
 	});
 	
