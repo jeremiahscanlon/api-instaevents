@@ -4,6 +4,7 @@ module.exports = function(app){
 
 	app.post('/login', function(req,res){
 		var user = User.findOne({'email': req.body.email});
+
 		if (!user) {
 			return res.status(401).send("That user does not exist");
 		}
@@ -12,10 +13,7 @@ module.exports = function(app){
 			return res.status(401).send("The password doesn't match that user");
 		}
 
-		res.status(201).send({
-			//id_token: createToken(user)
-			result:user.createdAt
-		});
+		res.status(201).json(user);
 
 	});
 	
