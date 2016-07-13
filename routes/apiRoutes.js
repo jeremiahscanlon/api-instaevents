@@ -83,7 +83,7 @@ module.exports = function(app){
 	});
 
 	app.post('/updateEvent', function(req,res){
-		User.findOneAndUpdate({'_id': req.body.eventID}, req.body.changes)
+		Event.findOneAndUpdate({'_id': req.body.eventID}, req.body.changes)
 			.exec(function(err, doc){
 				if (err || doc == null){
 					console.log(err);
