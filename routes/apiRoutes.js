@@ -220,8 +220,18 @@ module.exports = function(app){
 
 	app.post('/requestFriend', function(req,res){
 		User.findOneAndUpdate(
-			{$and: [{'_id': req.body.userID}, {'friends.accepted':{$ne:req.body.friendID}}, {'friends.requested':{$ne:req.body.friendID}}]},
-			{$push: {'friends.requested':req.body.friendID}}
+			{
+				$and: [
+					{'_id': req.body.userID},
+					{'friends.accepted':{$ne:req.body.friendID}},
+					{'friends.requested':{$ne:req.body.friendID}}
+				]
+			},
+			{
+				$push: {
+					'friends.requested':req.body.friendID
+				}
+			}
 		)
 			.exec(function(err, doc){
 				if (err || doc == null){
@@ -235,5 +245,49 @@ module.exports = function(app){
 					});
 				}
 			});
+	})
+
+	app.post('/removeFriend', function(req,res){
+		User.findOneAndUpdate({'_id': req.body.userID}, {$push: {'friends.removed':req.body.friendID}})
+			.exec(function(err, doc){
+				if (err || doc == null){
+					console.log(err);
+					res.json({
+						result:'no user'
+					});
+				} else {
+					User.findOneAndUpdate({'_id': req.body.friendID}, {$push:{'friends.removed':req.body.userID}})
+						.exec(function(err, doc){
+							if (err || doc == null){
+								console.log(err);
+								res.json({
+									result:'no user'
+								});
+							} else {
+								User.findOneAndUpdate({'_id': req.body.userID}, {$pull: {'friends.accepted':req.body.friendID}})
+									.exec(function(err, doc){
+										if (err || doc == null){
+											console.log(err);
+											res.json({
+												result:'no user'
+											});
+										} else {
+											User.findOneAndUpdate({'_id': req.body.friendID}, {$pull:{'friends.accepted':req.body.userID}})
+												.exec(function(err, doc){
+													if (err || doc == null){
+														console.log(err);
+													} else {
+														res.json({
+															result:'friend removed from user: '+doc._id
+														});
+													}
+												});
+										}
+									});
+							}
+						});
+				}
+			});
 	});
+
 };
