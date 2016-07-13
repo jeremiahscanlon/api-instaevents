@@ -131,15 +131,28 @@ module.exports = function(app){
 			});
 	});
 
-	app.post('/addFriend', function(req,res){
-		User.findOneAndUpdate({'_id': req.body.userID}, {$push:{'friends':req.body.friendID}})
+	app.post('/acceptFriend', function(req,res){
+		User.findOneAndUpdate(
+				{$and: [{'_id': req.body.userID}, {'friends.accepted':{$ne:req.body.friendID}}]},
+				{$push: {'friends.accepted':req.body.friendID}}
+			)
 			.exec(function(err, doc){
 				if (err || doc == null){
 					console.log(err);
-				} else {
 					res.json({
-						result:'friend added to user: '+doc._id
+						result:'already friends'
 					});
+				} else {
+					User.findOneAndUpdate({'_id': req.body.friendID}, {$push:{'friends.accepted':req.body.userID}})
+						.exec(function(err, doc){
+							if (err || doc == null){
+								console.log(err);
+							} else {
+								res.json({
+									result:'friend added to user: '+doc._id
+								});
+							}
+						});
 				}
 			});
 	});
