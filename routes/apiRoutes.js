@@ -157,5 +157,22 @@ module.exports = function(app){
 			});
 	});
 
-
+	app.post('/requestFriend', function(req,res){
+		User.findOneAndUpdate(
+			{$and: [{'_id': req.body.userID}, {'friends.accepted':{$ne:req.body.friendID}}, {'friends.requested':{$ne:req.body.friendID}}]},
+			{$push: {'friends.requested':req.body.friendID}}
+		)
+			.exec(function(err, doc){
+				if (err || doc == null){
+					console.log(err);
+					res.json({
+						result:'already requested or already friends'
+					});
+				} else {
+					res.json({
+						result:'requested to be friends with user: '+doc._id
+					});
+				}
+			});
+	});
 };
