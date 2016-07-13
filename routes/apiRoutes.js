@@ -24,7 +24,7 @@ module.exports = function(app){
 	});
 	
 	app.get('/users', function(req, res){
-		User.find({delete:false}, function(err, doc){
+		User.find({deleted:{$ne: true}}, function(err, doc){
 			if (err){
 				console.log(err);
 			} else {
@@ -65,6 +65,22 @@ module.exports = function(app){
 				} else {
 					res.json({
 						result:'user info updated for id: '+doc._id
+					});
+				}
+			});
+	});
+
+	app.post('/deleteUser', function(req,res){
+		User.findOneAndUpdate({'_id': req.body.userID}, {"deleted":true})
+			.exec(function(err, doc){
+				if (err || doc == null){
+					console.log(err);
+					res.json({
+						result:'whoops couldn\'t find that user'
+					});
+				} else {
+					res.json({
+						result:'user: '+doc._id+' deleted'
 					});
 				}
 			});
