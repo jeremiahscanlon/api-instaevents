@@ -82,6 +82,22 @@ module.exports = function(app){
 
 	});
 
+	app.post('/updateEvent', function(req,res){
+		User.findOneAndUpdate({'_id': req.body.eventID}, req.body.changes)
+			.exec(function(err, doc){
+				if (err || doc == null){
+					console.log(err);
+					res.json({
+						result:'whoops couldn\'t find that user'
+					});
+				} else {
+					res.json({
+						result:'user info updated for id: '+doc._id
+					});
+				}
+			});
+	});
+
 	app.post('/eventInvite', function(req,res){
 		Event.findOneAndUpdate({'_id': req.body.eventID}, {$push:{"attendees.invited":req.body.userID}})
 			.exec(function(err, doc){
