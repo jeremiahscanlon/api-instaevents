@@ -98,7 +98,7 @@ module.exports = function(app){
 	});
 
 	app.post('/deleteEvent', function(req,res){
-		Event.findOneAndUpdate({'_id': req.body.eventID}, {"delete":true})
+		Event.findOneAndUpdate({'_id': req.body.eventID}, {"deleted":true})
 			.exec(function(err, doc){
 				if (err || doc == null){
 					console.log(err);
