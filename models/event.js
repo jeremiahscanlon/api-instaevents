@@ -38,7 +38,8 @@ var EventSchema = new Schema({
     tags: Array,
     image: String,
     current: Boolean,
-    private: Boolean
+    private: Boolean,
+    deleted: Boolean
 },{
     timestamps: true
 });

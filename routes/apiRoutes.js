@@ -79,7 +79,6 @@ module.exports = function(app){
 			result:'its all good',
 			event_id: newevent._id
 		});
-
 	});
 
 	app.post('/updateEvent', function(req,res){
@@ -92,7 +91,23 @@ module.exports = function(app){
 					});
 				} else {
 					res.json({
-						result:'user info updated for id: '+doc._id
+						result:'event info updated for id: '+doc._id
+					});
+				}
+			});
+	});
+
+	app.post('/deleteEvent', function(req,res){
+		Event.findOneAndUpdate({'_id': req.body.eventID}, {"delete":true})
+			.exec(function(err, doc){
+				if (err || doc == null){
+					console.log(err);
+					res.json({
+						result:'whoops couldn\'t find that event'
+					});
+				} else {
+					res.json({
+						result:'event: '+doc._id+' deleted'
 					});
 				}
 			});

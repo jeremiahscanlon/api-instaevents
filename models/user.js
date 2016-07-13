@@ -7,7 +7,7 @@ var Schema = mongoose.Schema;
 var UserSchema = new Schema({
     username: {
         type: String,
-        unique: true,
+        unique: true
     },
     name:{
         first:String,
@@ -28,14 +28,55 @@ var UserSchema = new Schema({
         accepted:[{
             type: Schema.Types.ObjectId,
             ref: 'User'
+        }],
+        removed:[{
+            type: Schema.Types.ObjectId,
+            ref: 'User'
         }]
     },
     age: Number,
     homezip: String,
     workzip: String,
     settings: {
-        notifications: Boolean,
-    }
+        notifications: Boolean
+    },
+    events: {
+        invited:[{
+            type: Schema.Types.ObjectId,
+            ref: 'Events'
+        }],
+        in:[{
+            type: Schema.Types.ObjectId,
+            ref: 'Events'
+        }],
+        out:[{
+            type: Schema.Types.ObjectId,
+            ref: 'Events'
+        }],
+        watching:[{
+            type: Schema.Types.ObjectId,
+            ref: 'Events'
+        }],
+        past:{
+            invited:[{
+                type: Schema.Types.ObjectId,
+                ref: 'Events'
+            }],
+            in:[{
+                type: Schema.Types.ObjectId,
+                ref: 'Events'
+            }],
+            out:[{
+                type: Schema.Types.ObjectId,
+                ref: 'Events'
+            }],
+            watching:[{
+                type: Schema.Types.ObjectId,
+                ref: 'Events'
+            }]
+        }
+    },
+    deleted: Boolean
 },{
     timestamps: true
 });
