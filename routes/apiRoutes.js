@@ -43,9 +43,7 @@ module.exports = function(app){
 		});
 	});
 
-	app.post('/newuser', function(req,res){
-		console.log(req.body);
-		console.log(req.body.username);
+	app.post('/newUser', function(req,res){
 		var newuser = new User(req.body);
 		newuser.save(function (err, newuser) {
 			if (err) return console.error(err);
@@ -56,7 +54,23 @@ module.exports = function(app){
 		});
 	});
 
-	app.post('/newevent', function(req,res){
+	app.post('/updateUser', function(req,res){
+		User.findOneAndUpdate({'_id': req.body.userID}, req.body.changes)
+			.exec(function(err, doc){
+				if (err || doc == null){
+					console.log(err);
+					res.json({
+						result:'whoops couldn\'t find that user'
+					});
+				} else {
+					res.json({
+						result:'user info updated for id: '+doc._id
+					});
+				}
+			});
+	});
+
+	app.post('/newEvent', function(req,res){
 		var newevent = new Event(req.body);
 		newevent.save(function (err, newevent) {
 			if (err) return console.error(err);
