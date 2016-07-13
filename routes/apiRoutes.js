@@ -34,7 +34,7 @@ module.exports = function(app){
 	});
 
 	app.get('/events', function(req, res){
-		Event.find({delete:false}, function(err, doc){
+		Event.find({delete:{$not:{true}}}, function(err, doc){
 			if (err){
 				console.log(err);
 			} else {
