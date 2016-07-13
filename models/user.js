@@ -20,10 +20,16 @@ var UserSchema = new Schema({
     },
     picture: String,
     bio: String,
-    friends: [{
-        type: Schema.Types.ObjectId,
-        ref: 'User'
-    }],
+    friends: {
+        requested:[{
+            type: Schema.Types.ObjectId,
+            ref: 'User'
+        }],
+        accepted:[{
+            type: Schema.Types.ObjectId,
+            ref: 'User'
+        }]
+    },
     age: Number,
     homezip: String,
     workzip: String,
