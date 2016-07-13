@@ -24,7 +24,7 @@ module.exports = function(app){
 	});
 	
 	app.get('/users', function(req, res){
-		User.find({}, function(err, doc){
+		User.find({delete:false}, function(err, doc){
 			if (err){
 				console.log(err);
 			} else {
@@ -34,7 +34,7 @@ module.exports = function(app){
 	});
 
 	app.get('/events', function(req, res){
-		Event.find({}, function(err, doc){
+		Event.find({delete:false}, function(err, doc){
 			if (err){
 				console.log(err);
 			} else {

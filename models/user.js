@@ -76,7 +76,10 @@ var UserSchema = new Schema({
             }]
         }
     },
-    deleted: Boolean
+    deleted: {
+        type: Boolean,
+        default: false
+    }
 },{
     timestamps: true
 });

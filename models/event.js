@@ -39,7 +39,10 @@ var EventSchema = new Schema({
     image: String,
     current: Boolean,
     private: Boolean,
-    deleted: Boolean
+    deleted: {
+        type: Boolean,
+        default: false
+    }
 },{
     timestamps: true
 });
