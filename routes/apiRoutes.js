@@ -132,9 +132,7 @@ module.exports = function(app){
 	});
 
 	app.post('/addFriend', function(req,res){
-		console.log(req.body);
-		console.log(req.body.friendID);
-		Event.findOneAndUpdate({'_id': req.body.userID}, {$push:{'friends':req.body.friendID}})
+		User.findOneAndUpdate({'_id': req.body.userID}, {$push:{'friends':req.body.friendID}})
 			.exec(function(err, doc){
 				if (err || doc == null){
 					console.log(err);
