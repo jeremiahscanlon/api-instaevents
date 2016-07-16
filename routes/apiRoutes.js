@@ -43,6 +43,17 @@ module.exports = function(app){
 		});
 	});
 
+	app.get('/events/:id', function(req, res){
+		Event.find({$and: [{'_id': req.params.id}, {deleted:{$ne: true}}]}, function(err, doc){
+			if (err || doc == null){
+				console.log(err);
+				res.status(401).send("That event does not exist");
+			} else {
+				res.json(doc);
+			}
+		});
+	});
+
 	app.post('/newUser', function(req,res){
 		var newuser = new User(req.body);
 		newuser.save(function (err, newuser) {
