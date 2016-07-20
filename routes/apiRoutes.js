@@ -71,11 +71,11 @@ module.exports = function(app){
 			.exec(function(err, doc){
 				if (err || doc == null){
 					console.log(err);
-					res.json({
+					res.status(401).json({
 						result:'whoops couldn\'t find that user'
 					});
 				} else {
-					res.json({
+					res.status(201).json({
 						result:'user info updated for id: '+doc._id
 					});
 				}
