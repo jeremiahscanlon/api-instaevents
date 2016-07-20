@@ -49,7 +49,7 @@ module.exports = function(app){
 				console.log(err);
 				res.status(401).send("That event does not exist");
 			} else {
-				res.json(doc);
+				res.status(201).json(doc);
 			}
 		});
 	});
@@ -66,6 +66,7 @@ module.exports = function(app){
 	});
 
 	app.post('/updateUser', function(req,res){
+		console.log(req.body);
 		User.findOneAndUpdate({'_id': req.body.userID}, req.body.changes)
 			.exec(function(err, doc){
 				if (err || doc == null){
