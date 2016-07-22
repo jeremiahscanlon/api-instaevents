@@ -149,7 +149,11 @@ module.exports = function(app){
 		eventObject.creator = userInformation._id;
 
 		var getZip = req.body.zip;
+		console.log('get zip: '+getZip);
 		var googleUrl = 'https://maps.googleapis.com/maps/api/geocode/json?address='+getZip+'&key=AIzaSyBOo3mntkfMMomnO0V0P6Mt4bQ3vMUUWIw';
+
+		console.log('eventObject coming up ....................');
+		console.log(eventObject);
 
 		request(googleUrl, function (error, response, body) {
 			if (!error && response.statusCode == 200) {
