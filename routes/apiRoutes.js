@@ -28,9 +28,16 @@ module.exports = function(app){
         var newuser = new User(req.body);
         newuser.save(function (err, person) {
             if (err || person == null) return res.status(401).send(err);
-            res.status(201).send({
-                id_token: createToken(person)
-            });
+            User.findOne({ '_id': person._id }, function (err, person2) {
+                if (err || person == null) {
+                    return res.status(401).send("That user does not exist");
+                }
+                if (person.password !== req.body.password) {
+                    return res.status(401).send("The password doesn't match that user");
+                }
+                res.status(201).send({
+                    id_token: createToken(person2)
+                });
         });
     });
 
