@@ -6,7 +6,7 @@ module.exports = function(app){
 	var secret = 'ugointashowup';
 
 	function createToken(user) {
-	    console.log("creating token for: " + user);
+	    console.log("creating token for: " + user._id);
 		return jwt.sign(_.omit(user, 'password'), secret, { expiresIn: 60*60*5 });
 	}
 
@@ -23,6 +23,33 @@ module.exports = function(app){
 			});
 		});
 	});
+
+    app.post('/newUser', function(req,res){
+        var newuser = new User(req.body);
+        newuser.save(function (err, person) {
+            if (err || person == null) return res.status(401).send(err);
+            res.status(201).send({
+                id_token: createToken(person)
+            });
+        });
+    });
+
+    app.post('/updateUser', function(req,res){
+        console.log(req.body);
+        User.findOneAndUpdate({'_id': req.body.userID}, req.body.changes)
+            .exec(function(err, doc){
+                if (err || doc == null){
+                    console.log(err);
+                    res.status(401).json({
+                        result:'whoops couldn\'t find that user'
+                    });
+                } else {
+                    res.status(201).json({
+                        result:'user info updated for id: '+doc._id
+                    });
+                }
+            });
+    });
 	
 	app.get('/users', function(req, res){
 		User.find({deleted:{$ne: true}}, function(err, doc){
@@ -53,36 +80,6 @@ module.exports = function(app){
 				res.status(201).json(doc);
 			}
 		});
-	});
-
-	app.post('/newUser', function(req,res){
-		var newuser = new User(req.body);
-
-        newuser.save(function (err, person) {
-			if (err || person == null) return res.status(401).send(err);
-		})
-        .exec(function(err, doc) {
-            res.status(201).send({
-                id_token: createToken(person)
-            })
-        })
-	});
-
-	app.post('/updateUser', function(req,res){
-		console.log(req.body);
-		User.findOneAndUpdate({'_id': req.body.userID}, req.body.changes)
-			.exec(function(err, doc){
-				if (err || doc == null){
-					console.log(err);
-					res.status(401).json({
-						result:'whoops couldn\'t find that user'
-					});
-				} else {
-					res.status(201).json({
-						result:'user info updated for id: '+doc._id
-					});
-				}
-			});
 	});
 
 	app.post('/deleteUser', function(req,res){
