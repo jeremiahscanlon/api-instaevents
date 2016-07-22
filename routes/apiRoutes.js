@@ -158,16 +158,17 @@ module.exports = function(app){
 
 		request(googleUrl, function (error, response, body) {
 			if (!error && response.statusCode == 200) {
-
-				var results = JSON.parse(body.results[0].geometry.location);
-
-				var lat = results.lat;
-				var long = results.lng;
-
-				eventObject.loc = [lat,long];
-
-				console.log('eventObject coming up ....................');
-				console.log(eventObject);
+				console.log(body);
+				console.log(response);
+				// var results = JSON.parse(body.results[0].geometry.location);
+                //
+				// var lat = results.lat;
+				// var long = results.lng;
+                //
+				// eventObject.loc = [lat,long];
+                //
+				// console.log('eventObject coming up ....................');
+				// console.log(eventObject);
 				// var newevent = new Event(eventObject);
                 //
 				// newevent.save(function (err, eventInfo) {
