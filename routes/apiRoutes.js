@@ -49,8 +49,8 @@ module.exports = function(app){
     });
 
     app.post('/updateUser', function(req,res){
-        console.log(req.headers);
-        //console.log(req.body);
+		var userInformation = readToken(req.headers.token);
+		console.log(userInformation);
         User.findOneAndUpdate({'_id': req.body.userID}, req.body.changes)
             .exec(function(err, doc){
                 if (err || doc == null){
