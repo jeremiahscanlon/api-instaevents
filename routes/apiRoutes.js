@@ -60,7 +60,7 @@ module.exports = function(app){
 		newuser.save(function (err, person) {
 			if (err || person == null) return res.status(401).send(err);
 			res.status(201).send({
-				id_token: createToken(person);
+				id_token: createToken(person)
 			});
 		});
 	});
