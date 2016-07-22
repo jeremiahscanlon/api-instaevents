@@ -4,6 +4,7 @@ module.exports = function(app){
 	var jwt = require('jsonwebtoken');
 	var _ = require('lodash');
 	var secret = 'ugointashowup';
+	var request = require('request');
 
 	function createToken(user) {
 	    console.log("creating token for: " + user._id);
@@ -81,6 +82,38 @@ module.exports = function(app){
 		});
 	});
 
+	app.post('/events/search', function(req, res){
+		var type = req.body.type;
+		switch(type) {
+			case 'searchPage':
+				console.log("return results from search page");
+				Event.find({deleted:{$ne: true}}, function(err, doc){
+					if (err){
+						console.log(err);
+					} else {
+						res.json(doc);
+					}
+				});
+				break;
+			case 'all':
+				console.log("return all results");
+				Event.find({deleted:{$ne: true}}, function(err, doc){
+					if (err){
+						console.log(err);
+					} else {
+						res.json(doc);
+					}
+				});
+				break;
+			default: // Default code IS working
+				console.log("search type not valid");
+				res.status(401).json({
+					result:'search type not valid'
+				});
+		}
+
+	});
+
 	app.get('/events/:id', function(req, res){
 		Event.find({$and: [{'_id': req.params.id}, {deleted:{$ne: true}}]}, function(err, doc){
 			if (err || doc == null){
@@ -109,20 +142,50 @@ module.exports = function(app){
 	});
 
 	app.post('/newEvent', function(req,res){
-		var newevent = new Event(req.body);
+
 		var userInformation = readToken(req.headers.token);
-		newevent.save(function (err, eventInfo) {
-			if (err || eventInfo == null) return res.status(401).send(err);
-			Event.findOneAndUpdate({ '_id': eventInfo._id }, {creator:userInformation._id})
-				.exec(function(err, doc){
-				if (err || doc == null) {
-					return res.status(401).send("Server Error - Please try again later.");
-				}
-				res.status(201).json({
-					result:'event: '+doc._id+' has been added'
+
+		var eventObject = req.body;
+		eventObject.creator = userInformation._id;
+
+		var getZip = req.body.zip;
+		var googleUrl = 'https://maps.googleapis.com/maps/api/geocode/json?address='+getZip+'&key=AIzaSyBOo3mntkfMMomnO0V0P6Mt4bQ3vMUUWIw';
+
+		request(googleUrl, function (error, response, body) {
+			if (!error && response.statusCode == 200) {
+
+				var results = JSON.parse(body.results[0].geometry.location);
+
+				var lat = results.lat;
+				var long = results.lng;
+
+				eventObject.loc = [lat,long];
+
+				console.log('eventObject coming up ....................');
+				console.log(eventObject);
+				// var newevent = new Event(eventObject);
+                //
+				// newevent.save(function (err, eventInfo) {
+				// 	if (err || eventInfo == null) return res.status(401).send(err);
+				// 	res.status(201).json({
+				// 		result:'event: '+eventInfo._id+' has been added'
+				// 	});
+				// });
+
+
+			} else {
+				console.log('Error: '+error);
+				res.status(401).json({
+					result:'oops!'
 				});
-			});
+			}
 		});
+
+
+
+
+
+
 	});
 
 	app.post('/updateEvent', function(req,res){

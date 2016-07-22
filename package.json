@@ -12,12 +12,14 @@
   "dependencies": {
     "body-parser": "^1.15.2",
     "express": "^4.14.0",
+    "fetch": "^1.1.0",
     "jsonwebtoken": "^7.0.1",
     "letsencrypt-express": "^1.1.5",
     "lodash": "^4.13.1",
     "moment": "^2.14.1",
     "mongoose": "^4.5.2",
     "morgan": "^1.7.0",
+    "request": "^2.73.0",
     "serve-favicon": "^2.3.0",
     "spdy": "^3.3.3"
   }
