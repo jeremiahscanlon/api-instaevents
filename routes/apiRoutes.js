@@ -34,13 +34,9 @@ module.exports = function(app){
         newuser.save(function (err, person) {
             if (err || person == null) return res.status(401).send(err);
             User.findOne({ '_id': person._id }, function (err, person2) {
-                if (err || person == null) {
+                if (err || person2 == null) {
                     return res.status(401).send("That user does not exist");
                 }
-                if (person.password !== req.body.password) {
-                    return res.status(401).send("The password doesn't match that user");
-                }
-                console.log()
                 res.status(201).send({
                     id_token: createToken(person2)
                 });
@@ -114,8 +110,18 @@ module.exports = function(app){
 
 	app.post('/newEvent', function(req,res){
 		var newevent = new Event(req.body);
-		newevent.save(function (err, newevent) {
-			if (err) return console.error(err);
+		var userInformation = readToken(req.headers.token);
+		newevent.save(function (err, eventInfo) {
+			if (err || eventInfo == null) return res.status(401).send(err);
+			Event.findOneOneAndUpdate({ '_id': eventInfo._id }, {creator:userInformation._id})
+				.exec(function(err, doc){
+				if (err || doc == null) {
+					return res.status(401).send("Server Error - Please try again later.");
+				}
+				res.status(201).json({
+					result:'event: '+doc._id+' has been added'
+				});
+			});
 		});
 		res.json({
 			result:'its all good',
@@ -128,11 +134,11 @@ module.exports = function(app){
 			.exec(function(err, doc){
 				if (err || doc == null){
 					console.log(err);
-					res.json({
+					res.status(401).json({
 						result:'whoops couldn\'t find that user'
 					});
 				} else {
-					res.json({
+					res.status(201).json({
 						result:'event info updated for id: '+doc._id
 					});
 				}
