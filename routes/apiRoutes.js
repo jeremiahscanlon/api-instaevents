@@ -159,7 +159,7 @@ module.exports = function(app){
 			if (!error && response.statusCode == 200) {
 
 				var results = JSON.parse(body);
-				console.log(results.results);
+				console.log(results.results[0].geometry.location);
 				// var lat = results.lat;
 				// var long = results.lng;
                 //
