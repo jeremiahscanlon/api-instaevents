@@ -123,10 +123,6 @@ module.exports = function(app){
 				});
 			});
 		});
-		res.json({
-			result:'its all good',
-			event_id: newevent._id
-		});
 	});
 
 	app.post('/updateEvent', function(req,res){
