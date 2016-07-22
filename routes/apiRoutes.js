@@ -10,6 +10,11 @@ module.exports = function(app){
 		return jwt.sign(_.omit(user, 'password'), secret, { expiresIn: 60*60*5 });
 	}
 
+    function readToken(token) {
+        //return jwt.sign(_.omit(user, 'password'), secret, { expiresIn: 60*60*5 });
+        return jwt.verify(token, secret);
+    }
+
 	app.post('/login', function(req,res){
 		var user = User.findOne({ 'email': req.body.email }, function (err, person) {
 			if (err || person == null) {
@@ -35,6 +40,7 @@ module.exports = function(app){
                 if (person.password !== req.body.password) {
                     return res.status(401).send("The password doesn't match that user");
                 }
+                console.log()
                 res.status(201).send({
                     id_token: createToken(person2)
                 });
@@ -43,7 +49,8 @@ module.exports = function(app){
     });
 
     app.post('/updateUser', function(req,res){
-        console.log(req.body);
+        console.log(req.headers);
+        //console.log(req.body);
         User.findOneAndUpdate({'_id': req.body.userID}, req.body.changes)
             .exec(function(err, doc){
                 if (err || doc == null){
