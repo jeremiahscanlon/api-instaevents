@@ -159,23 +159,23 @@ module.exports = function(app){
 			if (!error && response.statusCode == 200) {
 
 				var results = JSON.parse(body);
-				console.log(results.results[0].geometry.location);
-				// var lat = results.lat;
-				// var long = results.lng;
-                //
-				// eventObject.loc = [lat,long];
-                //
-				// console.log('eventObject coming up ....................');
-				// console.log(eventObject);
-				// var newevent = new Event(eventObject);
-                //
-				// newevent.save(function (err, eventInfo) {
-				// 	if (err || eventInfo == null) return res.status(401).send(err);
-				// 	res.status(201).json({
-				// 		result:'event: '+eventInfo._id+' has been added'
-				// 	});
-				// });
 
+				var lat = results.results[0].geometry.location.lat;
+				var long = results.results[0].geometry.location.lng;
+
+				eventObject.loc = [lat,long];
+
+				console.log('eventObject coming up ....................');
+				console.log(eventObject);
+
+				var newevent = new Event(eventObject);
+
+				newevent.save(function (err, eventInfo) {
+					if (err || eventInfo == null) return res.status(401).send(err);
+					res.status(201).json({
+						result:'event: '+eventInfo._id+' has been added'
+					});
+				});
 
 			} else {
 				console.log('Error: '+error);
