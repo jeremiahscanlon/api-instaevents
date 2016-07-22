@@ -38,6 +38,7 @@ module.exports = function(app){
                 res.status(201).send({
                     id_token: createToken(person2)
                 });
+            });
         });
     });
 
