@@ -50,7 +50,6 @@ module.exports = function(app){
 
     app.post('/updateUser', function(req,res){
 		var userInformation = readToken(req.headers.token);
-		console.log(userInformation);
         User.findOneAndUpdate({'_id': userInformation._id}, req.body.changes)
             .exec(function(err, doc){
                 if (err || doc == null){
