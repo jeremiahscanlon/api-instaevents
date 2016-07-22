@@ -14,6 +14,7 @@ var EventSchema = new Schema({
         type: [Number],
         index: '2d'
     },
+    zip: String,
     location_name: String,
     description: String,
     attendees: {
