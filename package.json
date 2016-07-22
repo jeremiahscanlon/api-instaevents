@@ -21,6 +21,7 @@
     "morgan": "^1.7.0",
     "request": "^2.73.0",
     "serve-favicon": "^2.3.0",
-    "spdy": "^3.3.3"
+    "spdy": "^3.3.3",
+    "forever-monitor": "^1.7.0"
   }
 }
