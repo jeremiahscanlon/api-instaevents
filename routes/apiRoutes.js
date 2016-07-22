@@ -172,6 +172,7 @@ module.exports = function(app){
 
 				newevent.save(function (err, eventInfo) {
 					if (err || eventInfo == null) return res.status(401).send(err);
+					console.log('Im sending the response now ........................');
 					res.status(201).json({
 						result:'event: '+eventInfo._id+' has been added'
 					});
