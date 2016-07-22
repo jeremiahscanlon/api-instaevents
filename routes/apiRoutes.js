@@ -57,12 +57,15 @@ module.exports = function(app){
 
 	app.post('/newUser', function(req,res){
 		var newuser = new User(req.body);
-		newuser.save(function (err, person) {
+
+        newuser.save(function (err, person) {
 			if (err || person == null) return res.status(401).send(err);
-			res.status(201).send({
-				id_token: createToken(person)
-			});
-		});
+		})
+        .exec(function(err, doc) {
+            res.status(201).send({
+                id_token: createToken(person)
+            })
+        })
 	});
 
 	app.post('/updateUser', function(req,res){
@@ -92,7 +95,7 @@ module.exports = function(app){
 					});
 				} else {
 					res.json({
-						result:'user: '+doc._id+' deleted'
+						result:'user: '+ doc._id +' deleted'
 					});
 				}
 			});
