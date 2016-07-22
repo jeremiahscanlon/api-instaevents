@@ -113,7 +113,7 @@ module.exports = function(app){
 		var userInformation = readToken(req.headers.token);
 		newevent.save(function (err, eventInfo) {
 			if (err || eventInfo == null) return res.status(401).send(err);
-			Event.findOneOneAndUpdate({ '_id': eventInfo._id }, {creator:userInformation._id})
+			Event.findOneAndUpdate({ '_id': eventInfo._id }, {creator:userInformation._id})
 				.exec(function(err, doc){
 				if (err || doc == null) {
 					return res.status(401).send("Server Error - Please try again later.");
