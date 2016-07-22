@@ -57,10 +57,10 @@ module.exports = function(app){
 
 	app.post('/newUser', function(req,res){
 		var newuser = new User(req.body);
-		newuser.save(function (err, newuser) {
-			if (err || newuser == null) return res.status(401).send(err);
+		newuser.save(function (err, person) {
+			if (err || person == null) return res.status(401).send(err);
 			res.status(201).send({
-				id_token: createToken(newuser)
+				id_token: createToken(person);
 			});
 		});
 	});
