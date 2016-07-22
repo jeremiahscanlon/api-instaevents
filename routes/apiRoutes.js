@@ -153,22 +153,20 @@ module.exports = function(app){
 		var googleUrl = 'https://maps.googleapis.com/maps/api/geocode/json?address='+getZip+'&key=AIzaSyBOo3mntkfMMomnO0V0P6Mt4bQ3vMUUWIw';
 
 		console.log('eventObject coming up ....................');
-
 		console.log(eventObject);
 
 		request(googleUrl, function (error, response, body) {
 			if (!error && response.statusCode == 200) {
-				console.log(body);
-				console.log(response);
-				// var results = JSON.parse(body.results[0].geometry.location);
-                //
-				// var lat = results.lat;
-				// var long = results.lng;
-                //
-				// eventObject.loc = [lat,long];
-                //
-				// console.log('eventObject coming up ....................');
-				// console.log(eventObject);
+
+				var results = JSON.parse(body.results[0].geometry.location);
+				console.log(results);
+				var lat = results.lat;
+				var long = results.lng;
+
+				eventObject.loc = [lat,long];
+
+				console.log('eventObject coming up ....................');
+				console.log(eventObject);
 				// var newevent = new Event(eventObject);
                 //
 				// newevent.save(function (err, eventInfo) {
