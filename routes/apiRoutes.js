@@ -6,6 +6,7 @@ module.exports = function(app){
 	var secret = 'ugointashowup';
 
 	function createToken(user) {
+	    console.log("creating token for: " + user);
 		return jwt.sign(_.omit(user, 'password'), secret, { expiresIn: 60*60*5 });
 	}
 
@@ -57,11 +58,10 @@ module.exports = function(app){
 	app.post('/newUser', function(req,res){
 		var newuser = new User(req.body);
 		newuser.save(function (err, newuser) {
-			if (err) return console.error(err);
-		});
-		res.json({
-			result:'its all good',
-			user_id: newuser._id
+			if (err || newuser == null) return res.status(401).send(err);
+			res.status(201).send({
+				id_token: createToken(newuser)
+			});
 		});
 	});
 
