@@ -12,7 +12,7 @@ var EventSchema = new Schema({
     },
     loc: {
         type: [Number],
-        index: '2d'
+        index: '2dsphere'
     },
     zip: String,
     location_name: String,
