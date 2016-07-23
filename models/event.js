@@ -11,7 +11,7 @@ var EventSchema = new Schema({
         ref: 'User'
     },
     loc: {
-        type: [Point],
+        type: Point,
         index: '2d'
     },
     zip: String,
