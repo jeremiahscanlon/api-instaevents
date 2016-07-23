@@ -90,7 +90,7 @@ module.exports = function(app){
 
 				var getDistance = req.body.distance;
 				var getZip = req.body.zipcode;
-				console.log('get zip: '+getZip);
+				console.log('the distance: '+getDistance+' and the zip: '+getZip);
 				var googleUrl = 'https://maps.googleapis.com/maps/api/geocode/json?address='+getZip+'&key=AIzaSyBOo3mntkfMMomnO0V0P6Mt4bQ3vMUUWIw';
 
 				request(googleUrl, function (error, response, body) {
@@ -100,24 +100,24 @@ module.exports = function(app){
 
 						var lat = results.results[0].geometry.location.lat;
 						var long = results.results[0].geometry.location.lng;
+						console.log('the lat: '+lat+' the long: '+long+' and the distance: '+getDistance);
 
-						Event.find({$and: [
-							{
-								$near : {
-									$geometry : {
-										loc : [lat, long]
-									},
-									$maxDistance :getDistance
-								}
-							}, {
-								deleted:{$ne: true}
-							}
-						]}, function(err, doc){
-							if (err){
-								console.log(err);
-							} else {
-								console.log(doc);
-							}
+						var query = Event.find({deleted:{$ne: true}});
+
+						query = query.where('loc').near({
+							center: {
+								coordinates: [lat, long]
+							},
+							maxDistance: distance * 1609.34,
+							spherical: true
+						});
+
+						query.exec(function(err, doc) {
+							if (err)
+								res.send(err);
+
+							// If no errors, respond with a JSON
+							console.log(doc);
 						});
 
 					} else {
