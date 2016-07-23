@@ -241,6 +241,7 @@ module.exports = function(app){
 	app.post('/eventIn', function(req,res){
 
 		var userInformation = readToken(req.headers.token);
+		console.log('adding user: '+userInformation._id+' to event: '+req.body.eventID);
 
 		Event.findOneAndUpdate({'_id': req.body.eventID}, {$push:{"attendees.in":userInformation._id}})
 			.exec(function(err, doc){
