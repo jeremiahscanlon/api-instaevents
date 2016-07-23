@@ -118,7 +118,7 @@ module.exports = function(app){
 								res.send(err);
 							} else {
 								// If no errors, respond with a JSON
-								console.log(doc);
+								console.log(doc.length);
 								res.json(doc);
 							}
 
