@@ -187,9 +187,6 @@ module.exports = function(app){
 		console.log('get zip: '+getZip);
 		var googleUrl = 'https://maps.googleapis.com/maps/api/geocode/json?address='+getZip+'&key=AIzaSyBOo3mntkfMMomnO0V0P6Mt4bQ3vMUUWIw';
 
-		console.log('eventObject coming up ....................');
-		console.log(eventObject);
-
 		request(googleUrl, function (error, response, body) {
 			if (!error && response.statusCode == 200) {
 
@@ -199,9 +196,6 @@ module.exports = function(app){
 				var long = results.results[0].geometry.location.lng;
 
 				eventObject.loc = [lat,long];
-
-				console.log('eventObject coming up ....................');
-				console.log(eventObject);
 
 				var newevent = new Event(eventObject);
 
