@@ -104,14 +104,14 @@ module.exports = function(app){
 
 						var query = Event.find({deleted:{$ne: true}});
 
-						// query = query.where('loc').near({
-						// 	center: {
-						// 		type: 'Point',
-						// 		coordinates: [lat, long]
-						// 	},
-						// 	maxDistance: getDistance * 1609.34,
-						// 	spherical: true
-						// });
+						query = query.where('loc').near({
+							center: {
+								type: 'Point',
+								coordinates: [lat, long]
+							},
+							maxDistance: getDistance * 1609.34,
+							spherical: true
+						});
 
 						query.exec(function(err, doc) {
 							if (err){
@@ -119,6 +119,7 @@ module.exports = function(app){
 							} else {
 								// If no errors, respond with a JSON
 								console.log(doc);
+								res.json(doc);
 							}
 
 
