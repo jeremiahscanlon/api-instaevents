@@ -108,7 +108,7 @@ module.exports = function(app){
 							center: {
 								coordinates: [lat, long]
 							},
-							maxDistance: distance * 1609.34,
+							maxDistance: getDistance * 1609.34,
 							spherical: true
 						});
 
