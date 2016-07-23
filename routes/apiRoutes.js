@@ -106,6 +106,7 @@ module.exports = function(app){
 
 						query = query.where('loc').near({
 							center: {
+								type: 'Point',
 								coordinates: [lat, long]
 							},
 							maxDistance: getDistance * 1609.34,
