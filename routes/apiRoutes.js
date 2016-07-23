@@ -87,13 +87,48 @@ module.exports = function(app){
 		switch(type) {
 			case 'searchPage':
 				console.log("return results from search page");
-				Event.find({deleted:{$ne: true}}, function(err, doc){
-					if (err){
-						console.log(err);
+
+				var getDistance = req.body.distance;
+				var getZip = req.body.zipcode;
+				console.log('get zip: '+getZip);
+				var googleUrl = 'https://maps.googleapis.com/maps/api/geocode/json?address='+getZip+'&key=AIzaSyBOo3mntkfMMomnO0V0P6Mt4bQ3vMUUWIw';
+
+				request(googleUrl, function (error, response, body) {
+					if (!error && response.statusCode == 200) {
+
+						var results = JSON.parse(body);
+
+						var lat = results.results[0].geometry.location.lat;
+						var long = results.results[0].geometry.location.lng;
+
+						Event.find({$and: [
+							{
+								$near : {
+									$geometry : {
+										loc : [lat, long]
+									},
+									$maxDistance :getDistance
+								}
+							}, {
+								deleted:{$ne: true}
+							}
+						]}, function(err, doc){
+							if (err){
+								console.log(err);
+							} else {
+								console.log(doc);
+							}
+						});
+
 					} else {
-						res.json(doc);
+						console.log('Error: '+error);
+						res.status(401).json({
+							result:'oops!'
+						});
 					}
 				});
+
+
 				break;
 			case 'all':
 				console.log("return all results");
@@ -186,11 +221,6 @@ module.exports = function(app){
 			}
 		});
 
-
-
-
-
-
 	});
 
 	app.post('/updateEvent', function(req,res){
@@ -246,9 +276,10 @@ module.exports = function(app){
 		Event.findOneAndUpdate({'_id': req.body.eventID}, {$push:{"attendees.in":userInformation._id}})
 			.exec(function(err, doc){
 				if (err || doc == null){
+					res.status(401).send("Whoops");
 					console.log(err);
 				} else {
-					res.json({
+					res.status(201).json({
 						result:'user in for event: '+doc._id
 					});
 				}
