@@ -239,7 +239,10 @@ module.exports = function(app){
 	});
 
 	app.post('/eventIn', function(req,res){
-		Event.findOneAndUpdate({'_id': req.body.eventID}, {$push:{"attendees.in":req.body.userID}})
+
+		var userInformation = readToken(req.headers.token);
+
+		Event.findOneAndUpdate({'_id': req.body.eventID}, {$push:{"attendees.in":userInformation._id}})
 			.exec(function(err, doc){
 				if (err || doc == null){
 					console.log(err);
@@ -250,6 +253,7 @@ module.exports = function(app){
 				}
 			});
 	});
+
 	app.post('/eventOut', function(req,res){
 		Event.findOneAndUpdate({'_id': req.body.eventID}, {$push:{"attendees.out":req.body.userID}})
 			.exec(function(err, doc){
